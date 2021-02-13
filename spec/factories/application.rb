@@ -8,5 +8,6 @@ FactoryBot.define do
     zip { Faker::Address.zip }
     description { "" }
     status { "In Progress" or "Pending" or "Accepted" or "Rejected" }
+    shelter
   end
 end

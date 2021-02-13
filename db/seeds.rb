@@ -17,6 +17,8 @@ Shelter.destroy_all
 @pet3 = @shelter1.pets.create!(image:"", name: "Iggy", description: "dog", approximate_age: 8, sex: "female")
 @pet4 = @shelter1.pets.create!(image:"", name: "Mia", description: "dog", approximate_age: 4, sex: "female")
 @pet5 = @shelter1.pets.create!(image:"", name: "Josh", description: "dog", approximate_age: 1, sex: "male")
+@application_1 = Application.create!(first_name: "John", last_name: "Smith", street_address: "123 Baker Street", city: "Harrison", state: "MD", zip: 19013, description: "Large yard", status: "Pending")
+
 
 @shelter2 = Shelter.create!(name: "Silly Shelter", address: "123 Silly Ave", city: "Longmont", state: "CO", zip: 80012)
 @pet6 = @shelter2.pets.create!(image:"", name: "Athena", description: "cat", approximate_age: 3, sex: "female")

@@ -1,5 +1,5 @@
-<h2><%= @shelter.name %> Applications</h2>
+<h2>All Applications</h2>
 
 <% @applications.each do |app| %>
-<a href="/shelters/<%= @shelter.id %>/applications"><h4><%= app.first_name %></h4></a>
+<a href="/applications/<%= app.id %>"><h4><%= app.first_name %></h4></a>
 <% end %>
