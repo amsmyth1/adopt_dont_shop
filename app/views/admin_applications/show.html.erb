@@ -1,0 +1,37 @@
+<a href="/admin/applications">Admin Access for All Applications</a>
+
+<div class="app_info" id="personal_info">
+  <h3>Name</h3>
+  <p><%= @application.first_name %>
+  <%= @application.last_name %></p>
+  <h4>Status: <%= @application.status %></h4>
+  <h4>Address</h4>
+  <p><%= @application.street_address %></p>
+  <p><%= @application.city %>,
+  <%= @application.state %>
+  <%= @application.zip %></p>
+  <h4>Why I would make a good owner:</h4>
+  <p><%= @application.description %></p>
+</div>
+
+<div class="app_info" id="app_pets">
+  <h4>Pets they want to give a forever home:</h4>
+  <% @pets.each do |pet| %>
+  <a href="/pets/<%= pet.id %>"><%= pet.name %></a>
+  <br>
+  <% if ApplicationPet.status(pet.id, @application.id) == "Pending"%>
+    <%= form_with url: "/admin/applications/#{@application.id}", method: :get, local: true do |form| %>
+      <%= form.hidden_field :pet_id, value: pet.id %>
+      <%= form.submit "Approve this Pet" %>
+    <% end %>
+    <%= form_with url: "/admin/applications/#{@application.id}", method: :get, local: true do |form| %>
+      <%= form.hidden_field :pet_id, value: pet.id %>
+      <%= form.submit "Reject this Pet" %>
+    <% end %>
+  <% elsif ApplicationPet.status(pet.id, @application.id) == "Approved"%>
+    <p>APPROVED!</p>
+  <% elsif ApplicationPet.status(pet.id, @application.id) == "Rejected"%>
+    <p>Rejected</p>
+  <% end %>
+  <% end %>
+</div>

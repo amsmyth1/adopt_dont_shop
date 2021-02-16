@@ -1,7 +1,11 @@
 class ApplicationsController < ApplicationController
 
   def index
-    @applications = Application.all
+    if request.path == "/admin/applications"
+      @applications = Application.all
+    else
+      @applications = Application.all
+    end
   end
 
   def show
