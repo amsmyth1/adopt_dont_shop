@@ -64,4 +64,34 @@ RSpec.describe "the ADMIN applications show page" do
       expect(page).to have_content("Rejected")
     end
   end
+
+  describe "should be able to change an application status" do
+    it "can approve an application" do
+      visit "/admin/applications/#{@application.id}"
+      shelter = create(:shelter)
+      application = create(:application, status: "Pending")
+      pet_2 = create(:pet, shelter_id: shelter.id)
+      pet_4 = create(:pet, shelter_id: shelter.id)
+      pet_5 = create(:pet, shelter_id: shelter.id)
+      pet_6 = create(:pet, shelter_id: shelter.id)
+      pet_7 = create(:pet, shelter_id: shelter.id)
+
+
+      application.pets << pet_6
+      application.pets << pet_7
+      application.pets << pet_4
+
+      loop do
+        first(:button,"Approve this Pet").click
+        if page.body.include?("Approve this Pet")
+          break
+        end
+      end
+
+      expect(page).to_not have_content("Approve this Pet")
+      expect(page).to_not have_content("Reject this Pet")
+
+      expect(page).to have_content("Approved!")
+    end
+  end
 end
