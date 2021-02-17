@@ -9,18 +9,23 @@ class Application < ApplicationRecord
   validates :state, presence: true
   validates :zip, presence: true
 
-  def approve
+  def approve_or_reject
+    if can_approve?
+      id = self.id
+      adopt_all_pets
+      update(status: "Approved")
+    elsif can_reject?
+      update(status: "Rejected")
+    end
+  end
+
+  def adopt_all_pets
     id = self.id
     app_pets_ids = ApplicationPet.where(application_id: id)
-    app_pets_ids.map do |app_pet|
+    app_pets_ids.each do |app_pet|
       pet = Pet.find(app_pet.pet_id)
       pet.adopt
     end
-    update(status: "Approved")
-  end
-
-  def reject
-    update(status: "Rejected")
   end
 
   def can_approve?

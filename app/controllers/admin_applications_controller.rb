@@ -7,7 +7,6 @@ class AdminApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @pets = @application.pets
-
     if params[:commit] == "Approve this Pet"
       @pet_approved = Pet.find(params[:pet_id])
       ApplicationPet.approve(@pet_approved.id, @application.id)
@@ -16,11 +15,6 @@ class AdminApplicationsController < ApplicationController
       @pet_approved = Pet.find(params[:pet_id])
       ApplicationPet.reject(@pet_approved.id, @application.id)
     end
-
-    if @application.can_approve?
-      @application.approve
-    elsif @application.can_reject?
-      @application.reject
-    end
+    @application.approve_or_reject
   end
 end
