@@ -147,5 +147,32 @@ RSpec.describe "the ADMIN applications show page" do
         expect(page).to have_content("Rejected")
       end
     end
+
+    it "is notified if a pet is already apopted and cannot see the approve button" do
+      shelter = create(:shelter)
+      application = create(:application, status: "Pending")
+      pet_4 = create(:pet, shelter_id: shelter.id)
+      pet_6 = create(:pet, shelter_id: shelter.id)
+      pet_7 = create(:pet, shelter_id: shelter.id)
+      application.pets << pet_6
+      application.pets << pet_7
+      application.pets << pet_4
+      visit "/admin/applications/#{@application.id}"
+      loop do
+        first(:button,"Approve this Pet").click
+        if !page.body.include?("Approve this Pet")
+          break
+        end
+      end
+
+      application2 = create(:application, status: "Pending")
+      application2.pets << pet_6
+
+      visit "/admin/applications/#{application2.id}"
+      save_and_open_page
+
+      expect(page).to have_content("This pet has been adopted by another applicant")
+
+    end
   end
 end

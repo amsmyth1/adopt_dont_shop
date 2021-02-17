@@ -12,8 +12,8 @@ describe ApplicationPet, type: :model do
   end
 
   describe "class methods" do
-    describe "should track application status for each pet" do
-      it "should be able to approve pets on applicaitons" do
+    describe "::status" do
+      it "should be able find the app status for each app/pet pair" do
         application = create(:application, status: "Pending")
         pet1 = create(:pet)
         pet2 = create(:pet)
@@ -21,12 +21,32 @@ describe ApplicationPet, type: :model do
         application.pets << pet1
         application.pets << pet2
 
+        expect(ApplicationPet.status(pet1.id, application.id)).to eq ("Pending")
         ApplicationPet.approve(pet1.id, application.id)
 
         expect(ApplicationPet.status(pet1.id, application.id)).to eq ("Approved")
         expect(ApplicationPet.status(pet2.id, application.id)).to eq ("Pending")
       end
+    end
 
+    describe "::aprove" do
+      it "should not be able to approve a pet if already approved" do
+        application = create(:application, status: "Pending")
+        application2 = create(:application, status: "Pending")
+        pet1 = create(:pet)
+        pet2 = create(:pet)
+        application.pets << pet1
+        application2.pets << pet1
+        application.pets << pet2
+        ApplicationPet.approve(pet1.id, application.id)
+        app2 = ApplicationPet.find_by(pet_id: pet1.id, application_id: application2.id)
+        ApplicationPet.approve(pet1.id, application2.id)
+
+        expect(app2.application_status).to eq("Pending")
+      end
+    end
+
+    describe "::reject" do
       it "should be able to reject pets on applicaitons" do
         application = create(:application, status: "Pending")
         pet1 = create(:pet)

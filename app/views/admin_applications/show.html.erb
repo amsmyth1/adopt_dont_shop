@@ -34,6 +34,12 @@
     <p>APPROVED!</p>
   <% elsif ApplicationPet.status(pet.id, @application.id) == "Rejected"%>
     <p>Rejected</p>
+  <% elsif ApplicationPet.status(pet.id, @application.id) == "Pending with issue"%>
+    <p>This pet has been adopted by another applicant</p>
+    <%= form_with url: "/admin/applications/#{@application.id}", method: :get, local: true do |form| %>
+      <%= form.hidden_field :pet_id, value: pet.id %>
+      <%= form.submit "Reject this Pet" %>
+    <% end %>
   <% end %>
   <% end %>
 </div>
