@@ -34,6 +34,21 @@ describe Application, type: :model do
         application.approve
         expect(application.status).to eq("Approved")
       end
+
+      it "can change all pets adoptable status to false" do
+        application = create(:application, status: "Pending")
+        pet1 = create(:pet)
+        pet2 = create(:pet)
+        application.pets << pet1
+        application.pets << pet2
+        ApplicationPet.approve(pet1.id, application.id)
+        ApplicationPet.approve(pet2.id, application.id)
+        application.approve
+
+        expect(application.status).to eq("Approved")
+        expect(pet1.adoptable).to eq(false)
+        expect(pet2.adoptable).to eq(false)
+      end
     end
 
     describe "#can_approve?" do

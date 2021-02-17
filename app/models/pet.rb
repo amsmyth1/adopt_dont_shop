@@ -19,7 +19,7 @@ class Pet < ApplicationRecord
     end
   end
 
-  def adopted
+  def adopt
     update(adoptable: false)
   end
 end
