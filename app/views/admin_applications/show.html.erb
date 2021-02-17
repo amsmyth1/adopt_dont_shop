@@ -1,10 +1,12 @@
 <a href="/admin/applications">Admin Access for All Applications</a>
 
+<div class="app_info" id="app_status">
+  <h4>Status: <%= @application.status %></h4>
+</div>
 <div class="app_info" id="personal_info">
   <h3>Name</h3>
   <p><%= @application.first_name %>
   <%= @application.last_name %></p>
-  <h4>Status: <%= @application.status %></h4>
   <h4>Address</h4>
   <p><%= @application.street_address %></p>
   <p><%= @application.city %>,
