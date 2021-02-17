@@ -19,6 +19,7 @@ describe Application, type: :model do
         expect(application.status).to eq("Approved")
       end
     end
+    
     describe "#can_approve" do
       it "can check all pets are approved" do
         application = create(:application, status: "Pending")

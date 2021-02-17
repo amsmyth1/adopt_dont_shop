@@ -17,7 +17,7 @@ describe ApplicationPet, type: :model do
         application = create(:application, status: "Pending")
         pet1 = create(:pet)
         pet2 = create(:pet)
-  
+
         application.pets << pet1
         application.pets << pet2
 
