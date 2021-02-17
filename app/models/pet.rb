@@ -18,4 +18,8 @@ class Pet < ApplicationRecord
       @pets = Pet.all
     end
   end
+
+  def adopted
+    update(adoptable: false)
+  end
 end
