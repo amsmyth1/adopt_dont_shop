@@ -13,6 +13,10 @@ class Application < ApplicationRecord
     update(status: "Approved")
   end
 
+  def reject
+    update(status: "Rejected")
+  end
+
   def can_approve?
     id = self.id
     app_pets_ids = ApplicationPet.where(application_id: id)

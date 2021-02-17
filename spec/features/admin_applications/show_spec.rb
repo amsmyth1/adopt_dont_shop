@@ -89,10 +89,11 @@ RSpec.describe "the ADMIN applications show page" do
       expect(page).to_not have_content("Reject this Pet")
 
       within ('.app_info#app_status') do
-        expect(page).to have_content("Approved!")
+        expect(page).to have_content("Approved")
       end
     end
-    it "can reject an application when all pets are rejected" do
+
+    it "can reject an application when all pets are reviewed and rejected" do
       visit "/admin/applications/#{@application.id}"
       shelter = create(:shelter)
       application = create(:application, status: "Pending")
