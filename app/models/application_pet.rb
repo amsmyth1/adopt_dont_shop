@@ -15,6 +15,7 @@ class ApplicationPet < ApplicationRecord
     if app_pet.application_status == "Pending"
       if pet.adoptable == false
         app_pet.update(application_status: "Pending with issue")
+        app_pet.application_status
       else
         app_pet.application_status
       end
@@ -38,5 +39,11 @@ class ApplicationPet < ApplicationRecord
     pets.any? do |pet|
       pet.application_status == "Approved"
     end
+  end
+
+  def self.other_applications_with_pet(app_pet_id, app_id)
+    pets_all = ApplicationPet.where(pet_id: app_pet_id)
+    pets = pets_all.where.not(application_id: app_id)
+    pets.update(application_status: "Pending with issue")
   end
 end
