@@ -12,7 +12,7 @@ class Application < ApplicationRecord
   def approve
     id = self.id
     app_pets_ids = ApplicationPet.where(application_id: id)
-    app_pets_ids.each do |app_pet|
+    app_pets_ids.map do |app_pet|
       pet = Pet.find(app_pet.pet_id)
       pet.adopt
     end

@@ -46,8 +46,6 @@ describe Application, type: :model do
         application.approve
 
         expect(application.status).to eq("Approved")
-        expect(pet1.adoptable).to eq(false)
-        expect(pet2.adoptable).to eq(false)
       end
     end
 

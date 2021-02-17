@@ -260,7 +260,7 @@ And instead I see buttons to approve or reject the pet for this specific applica
 ```
 
 ```
-[ ] done
+[x] done
 
 All Pets Accepted on an Application
 
@@ -272,7 +272,7 @@ And I see the application's status has changed to "Approved"
 ```
 
 ```
-[ ] done
+[x] done
 
 One or More Pets Rejected on an Application
 
@@ -285,6 +285,7 @@ And I see the application's status has changed to "Rejected"
 ```
 
 ```
+[x]
 Application Approval makes Pets not adoptable
 
 As a visitor
@@ -296,9 +297,7 @@ Then I see that those pets are no longer "adoptable"
 
 ```
 Pets can only have one approved application on them at any time
-
 [ ] done
-
 As a visitor
 When a pet has an "Approved" application on them
 And when the pet has a "Pending" application on them

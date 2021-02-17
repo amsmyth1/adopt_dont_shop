@@ -70,7 +70,7 @@ describe Pet, type: :model do
         pet_2 = create(:pet)
 
         expect(pet_1.adoptable).to eq(true)
-        pet_1.adopted
+        pet_1.adopt
         expect(pet_1.adoptable).to eq(false)
         expect(pet_2.adoptable).to eq(true)
       end
