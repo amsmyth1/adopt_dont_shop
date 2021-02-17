@@ -70,12 +70,9 @@ RSpec.describe "the ADMIN applications show page" do
       visit "/admin/applications/#{@application.id}"
       shelter = create(:shelter)
       application = create(:application, status: "Pending")
-      pet_2 = create(:pet, shelter_id: shelter.id)
       pet_4 = create(:pet, shelter_id: shelter.id)
-      pet_5 = create(:pet, shelter_id: shelter.id)
       pet_6 = create(:pet, shelter_id: shelter.id)
       pet_7 = create(:pet, shelter_id: shelter.id)
-
 
       application.pets << pet_6
       application.pets << pet_7
@@ -83,7 +80,7 @@ RSpec.describe "the ADMIN applications show page" do
 
       loop do
         first(:button,"Approve this Pet").click
-        if page.body.include?("Approve this Pet")
+        if !page.body.include?("Approve this Pet")
           break
         end
       end
@@ -93,7 +90,61 @@ RSpec.describe "the ADMIN applications show page" do
 
       within ('.app_info#app_status') do
         expect(page).to have_content("Approved!")
-      end 
+      end
+    end
+    it "can reject an application when all pets are rejected" do
+      visit "/admin/applications/#{@application.id}"
+      shelter = create(:shelter)
+      application = create(:application, status: "Pending")
+      pet_2 = create(:pet, shelter_id: shelter.id)
+      pet_4 = create(:pet, shelter_id: shelter.id)
+      pet_5 = create(:pet, shelter_id: shelter.id)
+
+      application.pets << pet_2
+      application.pets << pet_4
+      application.pets << pet_5
+
+      loop do
+        first(:button,"Reject this Pet").click
+        if !page.body.include?("Reject this Pet")
+          break
+        end
+      end
+
+      expect(page).to_not have_content("Approve this Pet")
+      expect(page).to_not have_content("Reject this Pet")
+
+      within ('.app_info#app_status') do
+        expect(page).to have_content("Rejected")
+      end
+    end
+
+    it "can reject an application when 1 pet is rejected" do
+      visit "/admin/applications/#{@application.id}"
+      shelter = create(:shelter)
+      application = create(:application, status: "Pending")
+      pet_2 = create(:pet, shelter_id: shelter.id)
+      pet_4 = create(:pet, shelter_id: shelter.id)
+      pet_5 = create(:pet, shelter_id: shelter.id)
+
+      application.pets << pet_2
+      application.pets << pet_4
+      application.pets << pet_5
+
+      first(:button,"Reject this Pet").click
+      loop do
+        first(:button,"Approve this Pet").click
+        if !page.body.include?("Approve this Pet")
+          break
+        end
+      end
+
+      expect(page).to_not have_content("Approve this Pet")
+      expect(page).to_not have_content("Reject this Pet")
+
+      within ('.app_info#app_status') do
+        expect(page).to have_content("Rejected")
+      end
     end
   end
 end
