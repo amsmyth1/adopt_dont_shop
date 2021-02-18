@@ -1,3 +1,5 @@
+render partials: "pet_form"
+
 <%= form_tag "/shelters/#{@shelter.id}/pets" do %>
   <h2>Create a New Pet</h2>
   <%= label_tag :image%>
