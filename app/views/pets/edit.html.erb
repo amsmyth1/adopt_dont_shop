@@ -1,5 +1,4 @@
-
-
+<h2>Edit <%= link_to "#{@pet.name}", "/pets/#{@pet.id}" %></h2>
 <%= render partial: 'shared/pet_form', locals: {
                                                   path: "/pets/#{@pet.id}",
                                                   method: :patch,
