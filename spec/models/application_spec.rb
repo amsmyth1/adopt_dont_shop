@@ -79,5 +79,17 @@ describe Application, type: :model do
         expect(application.can_approve?).to eq(true)
       end
     end
+    describe "::all_pending" do
+      it "should list all applications with Pending or Pending with issue" do
+        application = create(:application, status: "Pending")
+        application2 = create(:application, status: "In Progress")
+        application3 = create(:application, status: "Pending")
+        application4 = create(:application, status: "Accepted")
+        application5 = create(:application, status: "Pending with issue")
+        application6 = create(:application, status: "Rejected")
+
+        expect(Application.all_pending).to eq([application, application3, application5])
+      end
+    end
   end
 end
