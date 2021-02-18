@@ -6,7 +6,7 @@ class AdminApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @pets = @application.pets
+    @pets = @application.pets #move to view
     if params[:commit] == "Approve this Pet"
       @pet_approved = Pet.find(params[:pet_id])
       ApplicationPet.approve(@pet_approved.id, @application.id)

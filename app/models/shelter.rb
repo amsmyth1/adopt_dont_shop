@@ -6,7 +6,8 @@ class Shelter < ApplicationRecord
   end
 
   def self.with_pending_applications
-    where(status: "Pending")
+    pending_apps = Application.all_pending
+    pending_apps.select('applications.*', ' application_pets.pet_id').joins(:application_pets)
   end
 
   def self.admin_show_query(id)
