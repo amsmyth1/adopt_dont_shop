@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   get "/shelters/:id/edit", to: "shelters#edit"
   patch "/shelters/:id", to: "shelters#update"
 
-
   get "/pets", to: "pets#index"
   get "/pets/:id", to: "pets#show"
   get "/pets/:id/edit", to: "pets#edit"
@@ -30,4 +29,6 @@ Rails.application.routes.draw do
   #
   get "/admin/applications", to: "admin_applications#index"
   get "/admin/applications/:id", to: "admin_applications#show"
+  get "/admin/shelters", to: "admin_shelters#index"
+  get "/admin/shelters/:id", to: "admin_shelters#show"
 end
