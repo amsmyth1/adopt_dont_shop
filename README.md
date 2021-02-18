@@ -316,6 +316,7 @@ These stories build out admin views for shelters. They will emphasize SQL and Ac
 For the following stories, you should write your queries in raw sql. You can use the [ActiveRecord find_by_sql](https://guides.rubyonrails.org/active_record_querying.html#finding-by-sql) method to execute raw sql queries.
 
 ```
+[x]
 Admin Shelters Index
 
 As a visitor
@@ -324,6 +325,7 @@ Then I see all Shelters in the system listed in reverse alphabetical order by na
 ```
 
 ```
+[x]
 Admin Shelters Show Page
 
 As a visitor
