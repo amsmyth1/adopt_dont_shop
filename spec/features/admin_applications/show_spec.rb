@@ -165,13 +165,11 @@ RSpec.describe "the ADMIN applications show page" do
         end
       end
       application.approve_or_reject
-      save_and_open_page
 
       application2 = create(:application, status: "Pending")
       application2.pets << pet_6
 
       visit "/admin/applications/#{application2.id}"
-      save_and_open_page
 
       expect(page).to have_content("This pet has been adopted by another applicant")
 

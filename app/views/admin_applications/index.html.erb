@@ -1,0 +1,7 @@
+<h1>Admin Home Page</h1>
+
+<h2> Applications:</h2>
+<% @applications.each do |app| %>
+  <a href="/admin/applications/<%= app.id %>"><%= app.first_name %></a>
+  <p> Status: <%= app.status %></p>
+<% end %>

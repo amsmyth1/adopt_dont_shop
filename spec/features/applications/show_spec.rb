@@ -65,9 +65,10 @@ RSpec.describe "the applications show page" do
       fill_in(:query, with: "Thor")
       click_button("Search")
 
-      first(:button, "Adopt This Pet")
+      first(:button, "Adopt This Pet").click
       expect(current_path).to eq (@app_show_url)
 
+      expect(@application.pets.first.name).to eq("Thor")
       expect(page).to have_content("Thor")
     end
   end
