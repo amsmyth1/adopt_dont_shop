@@ -61,4 +61,19 @@ describe Pet, type: :model do
       end
     end
   end
+
+  describe "instance methods" do
+    describe "#adopted" do
+      it "should change the adoptable status to false" do
+        shelter = create(:shelter)
+        pet_1 = create(:pet, name: "Thor")
+        pet_2 = create(:pet)
+
+        expect(pet_1.adoptable).to eq(true)
+        pet_1.adopt
+        expect(pet_1.adoptable).to eq(false)
+        expect(pet_2.adoptable).to eq(true)
+      end
+    end
+  end
 end

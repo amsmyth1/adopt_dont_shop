@@ -19,6 +19,24 @@ RSpec.describe 'Pets index page' do
     expect(page).to have_content("Description: #{@pet1.description}")
     expect(page).to have_content("Approx Age: #{@pet1.approximate_age}")
     expect(page).to have_content("Sex: #{@pet1.sex}")
-    expect(page).to have_content("Adoption Status: #{@pet1.adoptable?}")
+    expect(page).to have_content("Adoption Status: #{@pet1.adoptable}")
+  end
+
+  it "displays false when a pet is approved on an application for adoption" do
+    application = create(:application)
+    application.pets << @pet1
+    application.pets << @pet2
+    application.pets << @pet3
+    ApplicationPet.approve(@pet1.id, application.id)
+    ApplicationPet.approve(@pet2.id, application.id)
+    ApplicationPet.approve(@pet3.id, application.id)
+    application.approve_or_reject
+
+    visit "/pets/#{@pet1.id}"
+    expect(page).to have_content("Adoption Status: false")
+    visit "/pets/#{@pet2.id}"
+    expect(page).to have_content("Adoption Status: false")
+    visit "/pets/#{@pet3.id}"
+    expect(page).to have_content("Adoption Status: false")
   end
 end

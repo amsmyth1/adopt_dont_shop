@@ -10,6 +10,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    @app_pet_status =
     @pets = @application.pets
     @search_pets = Pet.search(params[:query])
 
