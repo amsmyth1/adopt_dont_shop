@@ -1,11 +1,7 @@
 class ApplicationsController < ApplicationController
 
   def index
-    if request.path == "/admin/applications"
-      @applications = Application.all
-    else
-      @applications = Application.all
-    end
+    @applications = Application.all
   end
 
   def show
@@ -39,10 +35,8 @@ class ApplicationsController < ApplicationController
     application.update(description: params[:app_submission])
     if params[:commit] == "Submit Application"
       application.update({status: "Pending"})
-      redirect_to "/applications/#{application.id}"
-    else
-      redirect_to "/applications/#{application.id}"
     end
+    redirect_to "/applications/#{application.id}"
   end
 
   private

@@ -34,12 +34,12 @@ class ApplicationPet < ApplicationRecord
     app_pet.update(application_status: "Rejected")
   end
 
-  def self.pet_already_approved?(id)
-    pets = ApplicationPet.where(pet_id: id)
-    pets.any? do |pet|
-      pet.application_status == "Approved"
-    end
-  end
+  # def self.pet_already_approved?(id)
+  #   pets = ApplicationPet.where(pet_id: id)
+  #   pets.any? do |pet|
+  #     pet.application_status == "Approved"
+  #   end
+  # end
 
   def self.other_applications_with_pet(app_pet_id, app_id)
     pets_all = ApplicationPet.where(pet_id: app_pet_id)
