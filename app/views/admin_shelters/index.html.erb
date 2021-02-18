@@ -1,0 +1,7 @@
+<h1>Admin Shelter</h1>
+
+<h3>All Shelters</h3>
+<% @shelters.each do |shelter| %>
+  <a href="/admin/shelters/<%= shelter.id %>"><%= shelter.name %></a>
+  <br>
+<% end %>
