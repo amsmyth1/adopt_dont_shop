@@ -24,6 +24,11 @@ class Shelter < ApplicationRecord
     pets.count
   end
 
+  def adopted_pet_count
+    pets = Pet.where(shelter_id: self.id).where(adoptable: false)
+    pets.count
+  end
+
   # def self.shelters_with_pending_applications
   #   Pet.shelters_with_pending_applications.joins(:shelters)
   # end
