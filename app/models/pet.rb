@@ -22,4 +22,8 @@ class Pet < ApplicationRecord
   def adopt
     update(adoptable: false)
   end
+
+  def self.shelters_with_pending_applications
+    Pet.joins(:application_pets).joins(:applications).where('applications.status = ?', "Pending").select('pets.shelter_id').distinct#.joins(:shelter)
+  end
 end

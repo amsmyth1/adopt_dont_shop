@@ -1,7 +1,16 @@
 <h1>Admin Shelter</h1>
 
+<section class="all_shelters">
 <h3>All Shelters</h3>
 <% @shelters.each do |shelter| %>
   <a href="/admin/shelters/<%= shelter.id %>"><%= shelter.name %></a>
   <br>
 <% end %>
+</section>
+
+<section class="pending_applications">
+  <h4>Shelters with Pending Applications</h4>
+  <% @shelters_pending_apps.each do |ar| %>
+  <p><%= ar.shelter.name %></p>
+  <% end %>
+</section>
