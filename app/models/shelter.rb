@@ -13,4 +13,8 @@ class Shelter < ApplicationRecord
   def self.admin_show_query(id)
     find_by_sql("SELECT name, address, city, state, zip FROM shelters WHERE id = #{id}")
   end
+
+  def self.shelters_with_pending_applications
+    Pet.shelters_with_pending_applications.joins(:shelters)
+  end
 end
