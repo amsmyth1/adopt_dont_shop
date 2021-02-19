@@ -1,6 +1,15 @@
 <h1>Admin Access</h1>
+
+<section class="admin_shelter_info">
 <h2><%= @shelter.name %></h2>
 <%= @shelter.address %>
 <%= @shelter.city %>
 <%= @shelter.state %>
 <%= @shelter.zip %><br>
+</section>
+
+<section class="admin_shelter_info" id="statistics">
+  <h3><%= @shelter.name %>Statistics</h3>
+  <p>Average Pet Age: <%= @shelter.average_pet_age %></p>
+  <p>Count of Adoptable: <%= @shelter.pet_count %></p>
+</section>
