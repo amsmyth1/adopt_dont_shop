@@ -29,19 +29,4 @@ RSpec.describe Shelter, type: :model do
       expect(Shelter.admin_show_query(@shelter_1.id).first.state).to eq(@shelter_1.state)
     end
   end
-
-  describe "::with_pending_applications" do
-    it "should list all shelters that have a pending application" do
-      shelter = create(:shelter)
-      pet1 = create(:pet, shelter_id: shelter.id)
-      pet2 = create(:pet, shelter_id: shelter.id)
-      application = create(:application)
-
-      application.pets << pet1
-      application.update(status: "Pending")
-      expect(application.status).to eq("Pending")
-
-      expect(Shelter.with_pending_applications).to eq([shelter])
-    end
-  end
 end

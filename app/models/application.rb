@@ -66,4 +66,8 @@ class Application < ApplicationRecord
     pending_issue = Application.where(status: "Pending with issue")
     pending.or(pending_issue)
   end
+
+  def self.shelter_associations(shelt_id)
+    all_pending.joins(:application_pets).joins(:pets).where('pets.shelter_id = ?', shelt_id).select('id').distinct
+  end
 end
