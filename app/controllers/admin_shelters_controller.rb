@@ -2,8 +2,9 @@ class AdminSheltersController < ApplicationController
 
   def index
     @shelters = Shelter.all_desc
-    @shelters_with_pending_applications = Shelter.all.map do |shelter|
-      Application.shelter_associations(shelter.id)
+    shelter_ids_pending_apps = Pet.shelters_with_pending_applications
+    @shelters_pending_apps = shelter_ids_pending_apps.map do |ar_object|
+      Shelter.find(ar_object.shelter_id)
     end
   end
 

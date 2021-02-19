@@ -48,7 +48,7 @@ describe "ADMIN shelter index page" do
       application3.update(status: "Pending")
 
       visit "/admin/shelters"
-      binding.pry
+
       within ".pending_applications" do
         expect(page).to have_content(shelter.name)
         expect(page).to have_content(shelter2.name)
