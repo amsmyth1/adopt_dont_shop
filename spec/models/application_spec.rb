@@ -121,7 +121,7 @@ describe Application, type: :model do
 
         shelters_associated_with_application = Application.shelter_associations(shelter.id)
 
-        # expect(shelters_associated_with_application.count).to eq(3)
+        expect(shelters_associated_with_application.count).to eq(3)
         expect(shelters_associated_with_application.first).to eq(application)
         expect(shelters_associated_with_application[1]).to eq(application2)
         expect(shelters_associated_with_application[2]).to eq(application3)
