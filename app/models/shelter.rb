@@ -25,4 +25,12 @@ class Shelter < ApplicationRecord
   def self.shelters_with_pending_applications
     Shelter.joins(:pets).joins(:applications).where('applications.status = ?', "Pending")
   end
+
+  def pets_pending_app_reivew
+    pets.joins(:applications).joins(:application_pets).where('application_pets.application_status = ?', 'Pending')
+  end
+
+  def action_required_applications(pet)
+    pet.applications.pluck(:id, :first_name)
+  end
 end

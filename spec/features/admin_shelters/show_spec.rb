@@ -53,6 +53,19 @@ RSpec.describe "ADMIN shelter show page" do
       within ".admin_shelter_info#statistics" do
         expect(page).to have_content("Count of Adopted Pets:")
       end
+
+      it "displays the pet count of the shelter" do
+        visit "/admin/shelters/#{@shelter.id}"
+        application = create(:application, status: "In Progress")
+        application.pets << @pet_1
+        application.pets << @pet_2
+
+        within ".admin_shelter_info#action_required" do
+          expect(page).to have_content("Pets: Action Required")
+          expect(page).to have_link(@pet_1.name)
+          expect(page).to have_link(@pet_2.name)
+        end
+      end
     end
   end
 end
