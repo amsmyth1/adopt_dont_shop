@@ -60,8 +60,6 @@ class Application < ApplicationRecord
 
   def self.all_pending
     pending = Application.where(status: "Pending")
-    pending_issue = Application.where(status: "Pending with issue")
-    pending.or(pending_issue)
   end
 
   # def self.shelter_associations(shelt_id)

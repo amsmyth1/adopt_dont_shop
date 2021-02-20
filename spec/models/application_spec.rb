@@ -102,52 +102,15 @@ describe Application, type: :model do
 
   describe "class methods" do
     describe "::all_pending" do
-      it "should list all applications with Pending or Pending with issue" do
-        application = create(:application, status: "Pending")
-        application2 = create(:application, status: "In Progress")
-        application3 = create(:application, status: "Pending")
-        application4 = create(:application, status: "Accepted")
-        application5 = create(:application, status: "Pending with issue")
-        application6 = create(:application, status: "Rejected")
+      it "should list all applications with Pending" do
+        application = create(:application, status: "Pending", first_name: "Able")
+        application2 = create(:application, status: "In Progress", first_name: "Matt")
+        application3 = create(:application, status: "Pending", first_name: "Abigail")
+        application4 = create(:application, status: "Accepted", first_name: "Max")
+        application5 = create(:application, status: "Pending", first_name: "Absynth")
+        application6 = create(:application, status: "Rejected", first_name: "Mason")
 
-        expect(Application.all_pending).to eq([application, application3, application5])
-      end
-    end
-
-    describe "::with_pending_applications" do
-      skip "should list all shelters that have a pending application" do
-        shelter = create(:shelter)
-        pet1 = create(:pet, shelter_id: shelter.id)
-        pet2 = create(:pet, shelter_id: shelter.id)
-        pet3 = create(:pet, shelter_id: shelter.id)
-        application = create(:application)
-        application2 = create(:application)
-        application3 = create(:application)
-        application4 = create(:application, status: "Rejected")
-
-        application.pets << pet1
-        application.pets << pet2
-        application.pets << pet3
-        application2.pets << pet1
-        application2.pets << pet2
-        application2.pets << pet3
-        application3.pets << pet1
-        application3.pets << pet2
-        application3.pets << pet3
-        application4.pets << pet1
-        application4.pets << pet2
-        application4.pets << pet3
-        application.update(status: "Pending")
-        application2.update(status: "Pending")
-        application3.update(status: "Pending")
-
-        shelters_associated_with_application = Application.shelter_associations(shelter.id)
-
-        expect(shelters_associated_with_application.count).to eq(3)
-        expect(shelters_associated_with_application.first).to eq(application)
-        expect(shelters_associated_with_application[1]).to eq(application2)
-        expect(shelters_associated_with_application[2]).to eq(application3)
-        expect(shelters_associated_with_application[3]).to eq(nil)
+        expect(Application.all_pending.pluck(:first_name)).to eq([@application.first_name, application.first_name, application3.first_name, application5.first_name])
       end
     end
   end
