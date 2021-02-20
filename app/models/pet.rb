@@ -10,8 +10,24 @@ class Pet < ApplicationRecord
             }
 
   enum sex: [:female, :male]
-  scope :adoptable, { where(adoptable: true) }
-  scope :adopted, { where(adoptable: false) }
+  # scope :adoptable, { where(adoptable: true) }
+  # scope :adopted, { where(adoptable: false) }
+
+  def adoptable?
+    if adoptable == true
+      true
+    else
+      false
+    end
+  end 
+
+  def self.all_adoptable
+    where(adoptable: true)
+  end
+
+  def self.all_adopted
+    where(adoptable: false)
+  end
 
   def self.search(search_terms)
     if search_terms
