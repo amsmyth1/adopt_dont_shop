@@ -75,42 +75,6 @@ describe Pet, type: :model do
         expect(search_result_th).to eq([pet_1, pet_3])
       end
     end
-    describe "::shelters_with_pending_applications" do
-      it "should return a list of shelter ids with pending applications" do
-        shelter = create(:shelter, name: "Dogs R Us")
-        shelter2 = create(:shelter, name: "Paws n Frands")
-        shelter3 = create(:shelter, name: "Animal Patrol")
-        shelter4 = create(:shelter)
-
-        pet1 = create(:pet, shelter_id: shelter.id)
-        pet2 = create(:pet, shelter_id: shelter2.id)
-        pet3 = create(:pet, shelter_id: shelter3.id)
-        pet4 = create(:pet, shelter_id: shelter4.id)
-        application = create(:application, status: "In Progress")
-        application2 = create(:application, status: "In Progress")
-        application3 = create(:application, status: "In Progress")
-        application4 = create(:application, status: "In Progress")
-
-        application.pets << pet1
-        application.pets << pet2
-        application.pets << pet3
-        application2.pets << pet1
-        application2.pets << pet2
-        application2.pets << pet3
-        application3.pets << pet1
-        application3.pets << pet2
-        application3.pets << pet3
-        application4.pets << pet4
-        application.update(status: "Pending")
-        application2.update(status: "Pending")
-        application3.update(status: "Pending")
-
-        shelters = Pet.shelters_with_pending_applications
-        expect(shelters[0].shelter_id).to eq(shelter.id)
-        expect(shelters[1].shelter_id).to eq(shelter2.id)
-        expect(shelters[2].shelter_id).to eq(shelter3.id)
-      end
-    end
   end
 
   describe "instance methods" do

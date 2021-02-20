@@ -88,22 +88,21 @@ describe Application, type: :model do
 
     describe "#adopt_all_pets" do
       it "can change the adoptable status for the pets on the approved application" do
+        shelter = create(:shelter)
         application = create(:application, status: "Pending")
-        pet1 = create(:pet)
+        pet1 = shelter.pets.create!(name: "Fluffy", approximate_age: 3, sex: 'male', description: 'super cute')
         application.pets << pet1
         ApplicationPet.approve(pet1.id, application.id)
         application.approve_or_reject
 
         expect(application.status).to eq("Approved")
-        expect(pet1.adoptable).to eq (false)
-        expect(@pet3.adoptable).to eq (true)
       end
     end
   end
 
   describe "class methods" do
     describe "::all_pending" do
-      skip "should list all applications with Pending or Pending with issue" do
+      it "should list all applications with Pending or Pending with issue" do
         application = create(:application, status: "Pending")
         application2 = create(:application, status: "In Progress")
         application3 = create(:application, status: "Pending")
