@@ -5,10 +5,44 @@ RSpec.describe Shelter, type: :model do
     @shelter_1 = create(:shelter, name: "Dogs R Us")
     @shelter_2 = create(:shelter, name: "Paws n Frands")
     @shelter_3 = create(:shelter, name: "Animal Patrol")
+    @pet1 = create(:pet, approximate_age: 1, shelter_id: @shelter_1.id)
+    @pet2 = create(:pet, approximate_age: 2, shelter_id: @shelter_1.id)
+    @pet3 = create(:pet, approximate_age: 3, shelter_id: @shelter_1.id)
+    @pet4 = create(:pet, approximate_age: 4, shelter_id: @shelter_1.id)
+    @pet5 = create(:pet, approximate_age: 5, shelter_id: @shelter_1.id)
+
+    @average_age = ((1 + 2 + 3 + 4 + 5) / 5)
   end
 
   describe 'relationships' do
     it { should have_many :pets }
+  end
+
+  describe "instance methods" do
+    describe "#average_pet_age" do
+      it "should give the average pet age of all pets in shelter" do
+        expect(@shelter_1.average_pet_age).to eq(@average_age)
+      end
+    end
+
+    describe "#pet_count" do
+      it "should give the number of pets in shelter" do
+        expect(@shelter_1.pet_count).to eq(5)
+      end
+    end
+
+    describe "#adopted_pet_count" do
+      it "should give the number of pets that have been adopted from the shelter" do
+        shelter_1 = create(:shelter)
+        pet1 = create(:pet, approximate_age: 1, shelter_id: shelter_1.id, adoptable: false)
+        pet2 = create(:pet, approximate_age: 2, shelter_id: shelter_1.id, adoptable: false)
+        pet3 = create(:pet, approximate_age: 3, shelter_id: shelter_1.id, adoptable: false)
+        pet4 = create(:pet, approximate_age: 4, shelter_id: shelter_1.id, adoptable: true)
+        pet5 = create(:pet, approximate_age: 5, shelter_id: shelter_1.id, adoptable: false)
+
+        expect(shelter_1.adopted_pet_count).to eq(4)
+      end
+    end
   end
 
   describe "class methods" do

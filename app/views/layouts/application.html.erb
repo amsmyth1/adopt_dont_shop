@@ -9,15 +9,20 @@
     <%= javascript_include_tag 'application' %>
 
   <header>
-    <div class="nav-bar">
-      <ul>
-        <p><%= link_to "Back to Home", "/" %>
-          <%= link_to "Go to Shelters", "/shelters" %>
-          <%= link_to 'Go to Pets', "/pets" %>
-          <%= link_to 'Go to Applications', "/applications" %>
-  </head><br>
+
+  </head>
 
   <body>
+    <div class="nav-bar" id="visitor">
+        <%= link_to "Back to Home", "/" %>
+        <%= link_to "Go to Shelters", "/shelters" %>
+        <%= link_to 'Go to Pets', "/pets" %>
+        <%= link_to 'Go to Applications', "/applications" %>
+        </div>
+    <div class="nav-bar" id="admin">
+        <%= link_to "Go to Admin Shelters", "/admin/shelters" %>
+        <%= link_to 'Go to Admin Applications', "/admin/applications" %>
+        </div>
     <%= yield %>
   </body>
 </html>

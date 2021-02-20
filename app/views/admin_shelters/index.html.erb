@@ -11,6 +11,6 @@
 <section class="pending_applications">
   <h4>Shelters with Pending Applications</h4>
   <% @shelters_pending_apps.each do |shelter| %>
-  <p><%= shelter.name %></p>
+  <a href="/admin/shelters/<%= shelter.id %>"><%= shelter.name %></a>
   <% end %>
 </section>
