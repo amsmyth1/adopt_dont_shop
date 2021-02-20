@@ -10,6 +10,8 @@ class Pet < ApplicationRecord
             }
 
   enum sex: [:female, :male]
+  scope :adoptable, { where(adoptable: true) }
+  scope :adopted, { where(adoptable: false) }
 
   def self.search(search_terms)
     if search_terms
@@ -24,6 +26,6 @@ class Pet < ApplicationRecord
   end
 
   def self.shelters_with_pending_applications
-    Pet.joins(:application_pets).joins(:applications).where('applications.status = ?', "Pending").select('pets.shelter_id').distinct#.joins(:shelter)
+    Pet.joins(:shelter).joins(:applications).where('applications.status = ?', "Pending")
   end
 end
