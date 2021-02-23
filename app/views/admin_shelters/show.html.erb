@@ -20,7 +20,7 @@
   <% @shelter_pets_not_reviewed_on_apps.each do |pet| %>
     <p><%= pet.name %></p>
     <% @shelter.action_required_applications(pet).each do |application_id| %>
-      <a href="/admin/applications/<%= application_id[0] %>">Update <%= application_id[1] %></a>
+      <a href="/admin/applications/<%= application_id[0] %>">Go to <%= application_id[1] %>'s application</a><br>
     <% end %>
   <% end %>
 </section>
