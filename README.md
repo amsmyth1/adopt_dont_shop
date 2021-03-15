@@ -1,4 +1,4 @@
-# Adopt Don't Shop
+# On the Spot's Adoption
 
 In this project, students will build upon the code in this repo to create a Pet Adoption Platform. Users will be able to apply to adopt pets, and Admins will be able to approve or reject applications and see statistics for the Shelters, Pets, and Applications in the system.
 
